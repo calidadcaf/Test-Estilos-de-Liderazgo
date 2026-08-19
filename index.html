@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test de Liderazgo - Estilos DISC</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #1a1a2e;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span {
+            background: linear-gradient(135deg, #e74c3c, #f1c40f, #2ecc71, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #6c757d;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        /* ===== FORMULARIO ===== */
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3436;
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c757d' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        /* ===== PALABRAS ===== */
+        .words-section {
+            margin-bottom: 30px;
+        }
+
+        .words-section .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .words-section .section-subtitle {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+        }
+
+        .word-btn {
+            padding: 12px 16px;
+            border: 2.5px solid #dfe6e9;
+            border-radius: 12px;
+            background: white;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            user-select: none;
+            position: relative;
+            font-family: inherit;
+        }
+
+        .word-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .word-btn:active {
+            transform: scale(0.96);
+        }
+
+        .word-btn.selected-red {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .word-btn.selected-yellow {
+            background: #f1c40f;
+            border-color: #f1c40f;
+            color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+        }
+
+        .word-btn.selected-green {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .word-btn.selected-blue {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* ===== CONTADOR ===== */
+        .counter-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .counter-section .selected-count {
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .counter-section .selected-count span {
+            color: #6c5ce7;
+            font-size: 22px;
+        }
+
+        .color-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .color-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .color-stat .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background: #e74c3c; }
+        .dot-yellow { background: #f1c40f; }
+        .dot-green { background: #2ecc71; }
+        .dot-blue { background: #3498db; }
+
+        .color-stat .count {
+            font-weight: 700;
+            font-size: 18px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* ===== RESULTADOS ===== */
+        .results-section {
+            display: none;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .results-section.visible {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .result-card .color-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .badge-red { background: #e74c3c; }
+        .badge-yellow { background: #f1c40f; color: #1a1a2e; }
+        .badge-green { background: #2ecc71; }
+        .badge-blue { background: #3498db; }
+
+        .result-card .percentage {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .result-card .percentage-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .result-card .bar-container {
+            width: 100%;
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 50px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .result-card .bar-fill {
+            height: 100%;
+            border-radius: 50px;
+            transition: width 1s ease;
+            width: 0%;
+        }
+
+        .bar-red { background: #e74c3c; }
+        .bar-yellow { background: #f1c40f; }
+        .bar-green { background: #2ecc71; }
+        .bar-blue { background: #3498db; }
+
+        .result-card .descripcion {
+            font-size: 14px;
+            color: #495057;
+            margin-top: 12px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* ===== BOTONES ===== */
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 14px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #dfe6e9;
+            color: #2d3436;
+        }
+
+        .btn-secondary:hover {
+            background: #b2bec3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 206, 201, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 206, 201, 0.4);
+        }
+
+        .btn-success:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-box {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-box .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e9ecef;
+            border-top-color: #6c5ce7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-box p {
+            color: #2d3436;
+            font-weight: 500;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 28px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2000;
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success { background: #00b894; }
+        .toast-error { background: #e74c3c; }
+        .toast-info { background: #6c5ce7; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 24px; }
+            .words-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 8px;
+            }
+            .word-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            .counter-section {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .color-stats { justify-content: center; }
+            .results-grid { grid-template-columns: 1fr; }
+            .btn {
+                padding: 12px 24px;
+                width: 100%;
+            }
+            .actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOADING OVERLAY ===== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <p>Guardando tus resultados...</p>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== MAIN CONTAINER ===== -->
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🎯 Test de <span>Liderazgo</span></h1>
+            <p>Basado en la metodología DISC · El Lenguaje de los Colores</p>
+        </div>
+
+        <!-- ===== FORMULARIO DATOS ===== -->
+        <div class="form-section">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre completo <span class="required">*</span></label>
+                    <input type="text" id="nombre" placeholder="Ej: Juan Pérez García" required />
+                </div>
+                <div class="form-group">
+                    <label>Campus <span class="required">*</span></label>
+                    <select id="campus" required>
+                        <option value="">Selecciona...</option>
+                        <option value="Bucaramanga">Bucaramanga</option>
+                        <option value="Cúcuta">Cúcuta</option>
+                        <option value="Valledupar">Valledupar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Proceso / Subproceso <span class="required">*</span></label>
+                    <select id="proceso" required>
+                        <option value="">Selecciona...</option>
+                        <option value="Atención al Estudiante">Atención al Estudiante</option>
+                        <option value="Compras">Compras</option>
+                        <option value="Gestión Administrativa">Gestión Administrativa</option>
+                        <option value="Logística">Logística</option>
+                        <option value="Mercadeo Institucional">Mercadeo Institucional</option>
+                        <option value="Planta Física">Planta Física</option>
+                        <option value="Talento Humano">Talento Humano</option>
+                        <option value="Activos Fijos">Activos Fijos</option>
+                        <option value="Crédito y Cartera">Crédito y Cartera</option>
+                        <option value="Gestión Financiera">Gestión Financiera</option>
+                        <option value="Presupuesto">Presupuesto</option>
+                        <option value="Tesorería">Tesorería</option>
+                        <option value="Gestión TIC">Gestión TIC</option>
+                        <option value="Infraestructura Tecnológica">Infraestructura Tecnológica</option>
+                        <option value="Seguridad Informática">Seguridad Informática</option>
+                        <option value="Servicio a Usuario">Servicio a Usuario</option>
+                        <option value="Sistemas de Información">Sistemas de Información</option>
+                        <option value="Autorregulación Institucional">Autorregulación Institucional</option>
+                        <option value="Biblioteca">Biblioteca</option>
+                        <option value="Centro de Idiomas">Centro de Idiomas</option>
+                        <option value="Desarrollo Estudiantil">Desarrollo Estudiantil</option>
+                        <option value="Desarrollo Profesoral">Desarrollo Profesoral</option>
+                        <option value="Enseñanza">Enseñanza</option>
+                        <option value="Gestión Curricular">Gestión Curricular</option>
+                        <option value="Laboratorio">Laboratorio</option>
+                        <option value="Educación Continua">Educación Continua</option>
+                        <option value="Graduados">Graduados</option>
+                        <option value="Centro de Conciliación">Centro de Conciliación</option>
+                        <option value="Consultorio Jurídico">Consultorio Jurídico</option>
+                        <option value="SGC-VAF">SGC-VAF</option>
+                        <option value="Gestión de Comunicaciones">Gestión de Comunicaciones</option>
+                        <option value="Bienestar Institucional">Bienestar Institucional</option>
+                        <option value="Gestión Documental">Gestión Documental</option>
+                        <option value="Registro y Control Académico">Registro y Control Académico</option>
+                        <option value="Planeación Institucional">Planeación Institucional</option>
+                        <option value="Gestión de Nueva Oferta Educativa">Gestión de Nueva Oferta Educativa</option>
+                        <option value="Vicerrectoría Administrativa y Financiera">Vicerrectoría Administrativa y Financiera</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PALABRAS ===== -->
+        <div class="words-section">
+            <div class="section-title">
+                📝 Selecciona las palabras que te definen
+            </div>
+            <div class="section-subtitle">
+                Elige al menos <strong>7 palabras</strong> que mejor te describan. Cada palabra tiene un color asociado a un estilo de liderazgo.
+            </div>
+
+            <div class="words-grid" id="wordsGrid"></div>
+
+            <!-- CONTADOR -->
+            <div class="counter-section">
+                <div class="selected-count">
+                    Palabras seleccionadas: <span id="selectedCount">0</span> / mínimo 7
+                </div>
+                <div class="color-stats">
+                    <span class="color-stat">
+                        <span class="dot dot-red"></span> Rojo: <span class="count" id="countRed">0</span>
+                    </span>
+                    <span class="color-stat">
+                        <span class="dot dot-yellow"></span> Amarillo: <span class="count" id="countYellow">0</span>
+                    </span>
+                    <span class="color-stat">
+                        <span class="dot dot-green"></span> Verde: <span class="count" id="countGreen">0</span>
+                    </span>
+                    <span class="color-stat">
+                        <span class="dot dot-blue"></span> Azul: <span class="count" id="countBlue">0</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== RESULTADOS ===== -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-title">🏆 Tu estilo de liderazgo</div>
+            <div class="results-grid" id="resultsGrid"></div>
+            <div style="text-align:center;margin-top:20px;font-size:14px;color:#6c757d;">
+                Basado en la metodología DISC · El Lenguaje de los Colores
+            </div>
+        </div>
+
+        <!-- ===== ACCIONES ===== -->
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="resetTest()">🔄 Reiniciar</button>
+            <button class="btn btn-primary" id="btnCalcular" onclick="calcularResultados()">
+                📊 Calcular mi liderazgo
+            </button>
+            <button class="btn btn-success" id="btnGuardar" onclick="guardarResultados()" disabled>
+                💾 Guardar resultados
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ================================================================ -->
+    <script>
+        // ================================================================
+        // 1. CONFIGURACIÓN
+        // ================================================================
+
+        // URL de tu Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGOGxby9Mni3HRXEF60uZ15XFC1sMvs83RmyztLuYUybsfoThxqlyoQoN56VxUBYk/exec';
+
+        const PALABRAS = [
+            { palabra: 'Alegre', color: 'yellow' },
+            { palabra: 'Reflexivo', color: 'blue' },
+            { palabra: 'Conciso', color: 'red' },
+            { palabra: 'Retador', color: 'red' },
+            { palabra: 'Objetivo', color: 'blue' },
+            { palabra: 'Solidario', color: 'green' },
+            { palabra: 'Impulsivo', color: 'yellow' },
+            { palabra: 'Asertivo', color: 'blue' },
+            { palabra: 'Entusiasta', color: 'yellow' },
+            { palabra: 'Decidido', color: 'red' },
+            { palabra: 'Fáctico', color: 'blue' },
+            { palabra: 'Firme', color: 'red' },
+            { palabra: 'Correcto', color: 'blue' },
+            { palabra: 'Buen argumentador', color: 'blue' },
+            { palabra: 'Fiable', color: 'blue' },
+            { palabra: 'Complaciente', color: 'green' },
+            { palabra: 'Activo', color: 'yellow' },
+            { palabra: 'Estable', color: 'green' },
+            { palabra: 'Divertido', color: 'yellow' },
+            { palabra: 'Sensible', color: 'green' },
+            { palabra: 'Certero', color: 'blue' },
+            { palabra: 'Realista', color: 'red' },
+            { palabra: 'Con tacto', color: 'green' },
+            { palabra: 'Dirigente', color: 'red' },
+            { palabra: 'Constante', color: 'blue' },
+            { palabra: 'Estructurado', color: 'blue' },
+            { palabra: 'Armonioso', color: 'green' },
+            { palabra: 'Voluntarioso', color: 'red' },
+            { palabra: 'Resuelto', color: 'red' },
+            { palabra: 'Convincente', color: 'red' },
+            { palabra: 'Cauteloso', color: 'blue' },
+            { palabra: 'Calculador', color: 'blue' },
+            { palabra: 'Dispuesto', color: 'yellow' },
+            { palabra: 'Persuasivo', color: 'yellow' },
+            { palabra: 'Paciente', color: 'green' },
+            { palabra: 'Influyente', color: 'yellow' },
+            { palabra: 'Diplomático', color: 'green' },
+            { palabra: 'Lógico', color: 'blue' },
+            { palabra: 'Encantador', color: 'yellow' },
+            { palabra: 'Sociable', color: 'yellow' },
+            { palabra: 'Extrovertido', color: 'yellow' },
+            { palabra: 'Valiente', color: 'red' },
+            { palabra: 'Cooperador', color: 'green' },
+            { palabra: 'Enérgico', color: 'red' },
+            { palabra: 'Convencional', color: 'blue' },
+            { palabra: 'Optimista', color: 'yellow' },
+            { palabra: 'Dinámico', color: 'red' },
+            { palabra: 'Simpático', color: 'yellow' },
+            { palabra: 'Coherente', color: 'blue' },
+            { palabra: 'Directo', color: 'red' },
+            { palabra: 'Fiel', color: 'green' },
+            { palabra: 'Tranquilo', color: 'green' },
+            { palabra: 'Atrevido', color: 'red' },
+            { palabra: 'Analítico', color: 'blue' },
+            { palabra: 'Exacto', color: 'blue' }
+        ];
+
+        const DESCRIPCIONES = {
+            red: {
+                nombre: 'ROJO',
+                descripcion: 'Líder orientado a resultados. Directo, decidido y retador. Busca cambios y objetivos claros. Tiene capacidad para movilizar equipos hacia la consecución de metas. Es pragmático y confronta los problemas de frente.'
+            },
+            yellow: {
+                nombre: 'AMARILLO',
+                descripcion: 'Líder inspirador y social. Entusiasta, persuasivo y creativo. Genera visibilidad y conexiones. Motiva a través de ideas seductoras y reconoce los logros. Disfruta del trabajo en equipo y la innovación.'
+            },
+            green: {
+                nombre: 'VERDE',
+                descripcion: 'Líder democrático y estable. Solidario, paciente y diplomático. Fomenta la confianza y la participación. Toma decisiones con calma, escucha a todos y busca la sostenibilidad. Valora la armonía y el trabajo en equipo.'
+            },
+            blue: {
+                nombre: 'AZUL',
+                descripcion: 'Líder metódico y preciso. Analítico, estructurado y lógico. Busca calidad y rigor en los procesos. Planifica con detalle, minimiza riesgos y garantiza estándares. Valora la información clara y la ejecución cuidadosa.'
+            }
+        };
+
+        let selectedWords = [];
+        let resultados = null;
+
+        // ================================================================
+        // 2. INICIALIZAR
+        // ================================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderWords();
+            updateCounter();
+        });
+
+        // ================================================================
+        // 3. RENDERIZAR PALABRAS
+        // ================================================================
+
+        function renderWords() {
+            const grid = document.getElementById('wordsGrid');
+            const shuffled = [...PALABRAS].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'word-btn';
+                btn.textContent = item.palabra;
+                btn.dataset.color = item.color;
+                btn.dataset.palabra = item.palabra;
+                btn.addEventListener('click', function() {
+                    toggleWord(this);
+                });
+                grid.appendChild(btn);
+            });
+        }
+
+        // ================================================================
+        // 4. LÓGICA DE SELECCIÓN
+        // ================================================================
+
+        function toggleWord(btn) {
+            const palabra = btn.dataset.palabra;
+            const color = btn.dataset.color;
+
+            const index = selectedWords.indexOf(palabra);
+
+            if (index > -1) {
+                selectedWords.splice(index, 1);
+                btn.className = 'word-btn';
+            } else {
+                selectedWords.push(palabra);
+                btn.className = `word-btn selected-${color}`;
+            }
+
+            updateCounter();
+            document.getElementById('resultsSection').classList.remove('visible');
+            document.getElementById('btnGuardar').disabled = true;
+        }
+
+        // ================================================================
+        // 5. ACTUALIZAR CONTADOR
+        // ================================================================
+
+        function updateCounter() {
+            const total = selectedWords.length;
+            document.getElementById('selectedCount').textContent = total;
+
+            let counts = { red: 0, yellow: 0, green: 0, blue: 0 };
+
+            selectedWords.forEach(palabra => {
+                const item = PALABRAS.find(p => p.palabra === palabra);
+                if (item) counts[item.color]++;
+            });
+
+            document.getElementById('countRed').textContent = counts.red;
+            document.getElementById('countYellow').textContent = counts.yellow;
+            document.getElementById('countGreen').textContent = counts.green;
+            document.getElementById('countBlue').textContent = counts.blue;
+
+            document.getElementById('btnCalcular').disabled = total < 7;
+        }
+
+        // ================================================================
+        // 6. CALCULAR RESULTADOS
+        // ================================================================
+
+        function calcularResultados() {
+            const total = selectedWords.length;
+
+            if (total < 7) {
+                showToast('Selecciona al menos 7 palabras', 'error');
+                return;
+            }
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const campus = document.getElementById('campus').value;
+            const proceso = document.getElementById('proceso').value;
+
+            if (!nombre || !campus || !proceso) {
+                showToast('Completa todos los campos del formulario', 'error');
+                return;
+            }
+
+            let counts = { red: 0, yellow: 0, green: 0, blue: 0 };
+
+            selectedWords.forEach(palabra => {
+                const item = PALABRAS.find(p => p.palabra === palabra);
+                if (item) counts[item.color]++;
+            });
+
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+            const primary = sorted[0][0];
+            const secondary = sorted[1][0];
+
+            resultados = {
+                primary,
+                secondary,
+                counts,
+                total,
+                palabras: [...selectedWords],
+                nombre,
+                campus,
+                proceso
+            };
+
+            mostrarResultados();
+            document.getElementById('btnGuardar').disabled = false;
+            showToast('Resultados calculados correctamente', 'success');
+        }
+
+        // ================================================================
+        // 7. MOSTRAR RESULTADOS
+        // ================================================================
+
+        function mostrarResultados() {
+            if (!resultados) return;
+
+            const section = document.getElementById('resultsSection');
+            const grid = document.getElementById('resultsGrid');
+
+            const colors = ['red', 'yellow', 'green', 'blue'];
+            const colorNames = { red: 'ROJO', yellow: 'AMARILLO', green: 'VERDE', blue: 'AZUL' };
+            const colorEmojis = { red: '🔴', yellow: '🟡', green: '🟢', blue: '🔵' };
+            const colorBadgeClass = { red: 'badge-red', yellow: 'badge-yellow', green: 'badge-green', blue: 'badge-blue' };
+            const barClass = { red: 'bar-red', yellow: 'bar-yellow', green: 'bar-green', blue: 'bar-blue' };
+
+            const sortedColors = colors.sort((a, b) => {
+                if (a === resultados.primary) return -1;
+                if (b === resultados.primary) return 1;
+                return resultados.counts[b] - resultados.counts[a];
+            });
+
+            let html = '';
+
+            sortedColors.forEach(color => {
+                const count = resultados.counts[color] || 0;
+                const pct = Math.round((count / resultados.total) * 100);
+                const isPrimary = color === resultados.primary;
+                const isSecondary = color === resultados.secondary;
+
+                html += `
+                    <div class="result-card">
+                        <div class="color-badge ${colorBadgeClass[color]}">
+                            ${colorEmojis[color]} ${colorNames[color]}
+                            ${isPrimary ? '⭐' : ''}
+                        </div>
+                        <div class="percentage">${pct}%</div>
+                        <div class="percentage-label">${count} de ${resultados.total} palabras</div>
+                        <div class="bar-container">
+                            <div class="bar-fill ${barClass[color]}" style="width:${pct}%"></div>
+                        </div>
+                        <div class="descripcion">
+                            <strong>${isPrimary ? '🎯 Tu estilo principal es ' + colorNames[color] : ''}</strong>
+                            ${isSecondary ? '📌 Secundario: ' + colorNames[color] : ''}
+                            <br><br>
+                            ${DESCRIPCIONES[color].descripcion}
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+            section.classList.add('visible');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ================================================================
+        // 8. GUARDAR EN GOOGLE SHEETS
+        // ================================================================
+
+        async function guardarResultados() {
+            if (!resultados) {
+                showToast('Primero calcula tus resultados', 'error');
+                return;
+            }
+
+            const loading = document.getElementById('loadingOverlay');
+            loading.classList.add('active');
+
+            const btnGuardar = document.getElementById('btnGuardar');
+            btnGuardar.disabled = true;
+
+            try {
+                const data = {
+                    nombre: resultados.nombre,
+                    campus: resultados.campus,
+                    proceso: resultados.proceso,
+                    color_primario: resultados.primary,
+                    color_secundario: resultados.secondary,
+                    puntaje_rojo: resultados.counts.red,
+                    puntaje_amarillo: resultados.counts.yellow,
+                    puntaje_verde: resultados.counts.green,
+                    puntaje_azul: resultados.counts.blue,
+                    total_palabras: resultados.total,
+                    palabras_seleccionadas: resultados.palabras.join(', ')
+                };
+
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                showToast('✅ ¡Resultados guardados correctamente!', 'success');
+                btnGuardar.disabled = true;
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('❌ Error al guardar. Intenta de nuevo.', 'error');
+                btnGuardar.disabled = false;
+            } finally {
+                loading.classList.remove('active');
+            }
+        }
+
+        // ================================================================
+        // 9. REINICIAR TEST
+        // ================================================================
+
+        function resetTest() {
+            selectedWords = [];
+            resultados = null;
+
+            document.querySelectorAll('.word-btn').forEach(btn => {
+                btn.className = 'word-btn';
+            });
+
+            updateCounter();
+            document.getElementById('resultsSection').classList.remove('visible');
+            document.getElementById('btnGuardar').disabled = true;
+            document.getElementById('btnCalcular').disabled = true;
+
+            showToast('🔄 Test reiniciado', 'info');
+        }
+
+        // ================================================================
+        // 10. TOAST
+        // ================================================================
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast toast-${type}`;
+            toast.classList.add('show');
+
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+    </script>
+
+</body>
+</html>
