@@ -647,9 +647,10 @@
 
     <script>
         // ================================================================
-        // CONFIGURACIÓN
+        // CONFIGURACIÓN - URL VERIFICADA
         // ================================================================
 
+        // URL de tu Google Apps Script (verificada y correcta)
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGOGxby9Mni3HRXEF60uZ15XFC1sMvs83RmyztLuYUybsfoThxqlyoQoN56VxUBYk/exec';
 
         const PALABRAS = [
@@ -933,7 +934,7 @@
                     palabras_seleccionadas: resultados.palabras.join(', ')
                 };
 
-                // Usamos no-cors y enviamos los datos
+                // IMPORTANTE: Usamos no-cors para evitar problemas de CORS
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
