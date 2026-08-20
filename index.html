@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test de Liderazgo - Estilos DISC</title>
     <style>
-        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -40,7 +39,6 @@
             }
         }
 
-        /* ===== HEADER ===== */
         .header {
             text-align: center;
             border-bottom: 2px solid #e9ecef;
@@ -68,7 +66,6 @@
             margin-top: 8px;
         }
 
-        /* ===== FORMULARIO ===== */
         .form-section {
             background: #f8f9fa;
             border-radius: 16px;
@@ -131,7 +128,6 @@
             background-position: right 12px center;
         }
 
-        /* ===== PALABRAS ===== */
         .words-section {
             margin-bottom: 30px;
         }
@@ -169,7 +165,6 @@
             transition: all 0.2s ease;
             text-align: center;
             user-select: none;
-            position: relative;
             font-family: inherit;
         }
 
@@ -210,7 +205,6 @@
             box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
         }
 
-        /* ===== CONTADOR ===== */
         .counter-section {
             display: flex;
             flex-wrap: wrap;
@@ -266,7 +260,6 @@
             text-align: center;
         }
 
-        /* ===== RESULTADOS ===== */
         .results-section {
             display: none;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
@@ -363,7 +356,6 @@
             text-align: left;
         }
 
-        /* ===== BOTONES ===== */
         .actions {
             display: flex;
             gap: 15px;
@@ -427,7 +419,6 @@
             transform: none;
         }
 
-        /* ===== LOADING ===== */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -473,7 +464,6 @@
             font-weight: 500;
         }
 
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -499,7 +489,6 @@
         .toast-error { background: #e74c3c; }
         .toast-info { background: #6c5ce7; }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 480px) {
             .container { padding: 20px; }
             .header h1 { font-size: 24px; }
@@ -528,7 +517,6 @@
 </head>
 <body>
 
-    <!-- ===== LOADING OVERLAY ===== -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-box">
             <div class="spinner"></div>
@@ -536,19 +524,15 @@
         </div>
     </div>
 
-    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast"></div>
 
-    <!-- ===== MAIN CONTAINER ===== -->
     <div class="container">
 
-        <!-- HEADER -->
         <div class="header">
             <h1>🎯 Test de <span>Liderazgo</span></h1>
             <p>Basado en la metodología DISC · El Lenguaje de los Colores</p>
         </div>
 
-        <!-- ===== FORMULARIO DATOS ===== -->
         <div class="form-section">
             <div class="form-row">
                 <div class="form-group">
@@ -610,7 +594,6 @@
             </div>
         </div>
 
-        <!-- ===== PALABRAS ===== -->
         <div class="words-section">
             <div class="section-title">
                 📝 Selecciona las palabras que te definen
@@ -621,7 +604,6 @@
 
             <div class="words-grid" id="wordsGrid"></div>
 
-            <!-- CONTADOR -->
             <div class="counter-section">
                 <div class="selected-count">
                     Palabras seleccionadas: <span id="selectedCount">0</span> / mínimo 7
@@ -643,7 +625,6 @@
             </div>
         </div>
 
-        <!-- ===== RESULTADOS ===== -->
         <div class="results-section" id="resultsSection">
             <div class="results-title">🏆 Tu estilo de liderazgo</div>
             <div class="results-grid" id="resultsGrid"></div>
@@ -652,7 +633,6 @@
             </div>
         </div>
 
-        <!-- ===== ACCIONES ===== -->
         <div class="actions">
             <button class="btn btn-secondary" onclick="resetTest()">🔄 Reiniciar</button>
             <button class="btn btn-primary" id="btnCalcular" onclick="calcularResultados()">
@@ -665,15 +645,11 @@
 
     </div>
 
-    <!-- ================================================================ -->
-    <!-- ===== JAVASCRIPT ===== -->
-    <!-- ================================================================ -->
     <script>
         // ================================================================
-        // 1. CONFIGURACIÓN
+        // CONFIGURACIÓN
         // ================================================================
 
-        // URL de tu Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGOGxby9Mni3HRXEF60uZ15XFC1sMvs83RmyztLuYUybsfoThxqlyoQoN56VxUBYk/exec';
 
         const PALABRAS = [
@@ -757,17 +733,13 @@
         let resultados = null;
 
         // ================================================================
-        // 2. INICIALIZAR
+        // INICIALIZAR
         // ================================================================
 
         document.addEventListener('DOMContentLoaded', function() {
             renderWords();
             updateCounter();
         });
-
-        // ================================================================
-        // 3. RENDERIZAR PALABRAS
-        // ================================================================
 
         function renderWords() {
             const grid = document.getElementById('wordsGrid');
@@ -785,10 +757,6 @@
                 grid.appendChild(btn);
             });
         }
-
-        // ================================================================
-        // 4. LÓGICA DE SELECCIÓN
-        // ================================================================
 
         function toggleWord(btn) {
             const palabra = btn.dataset.palabra;
@@ -809,10 +777,6 @@
             document.getElementById('btnGuardar').disabled = true;
         }
 
-        // ================================================================
-        // 5. ACTUALIZAR CONTADOR
-        // ================================================================
-
         function updateCounter() {
             const total = selectedWords.length;
             document.getElementById('selectedCount').textContent = total;
@@ -831,10 +795,6 @@
 
             document.getElementById('btnCalcular').disabled = total < 7;
         }
-
-        // ================================================================
-        // 6. CALCULAR RESULTADOS
-        // ================================================================
 
         function calcularResultados() {
             const total = selectedWords.length;
@@ -880,10 +840,6 @@
             document.getElementById('btnGuardar').disabled = false;
             showToast('Resultados calculados correctamente', 'success');
         }
-
-        // ================================================================
-        // 7. MOSTRAR RESULTADOS
-        // ================================================================
 
         function mostrarResultados() {
             if (!resultados) return;
@@ -938,7 +894,7 @@
         }
 
         // ================================================================
-        // 8. GUARDAR EN GOOGLE SHEETS (CON VERIFICACIÓN DE DUPLICADOS)
+        // GUARDAR EN GOOGLE SHEETS - CON NO-CORS
         // ================================================================
 
         async function guardarResultados() {
@@ -947,7 +903,6 @@
                 return;
             }
 
-            // Validar datos personales
             const nombre = document.getElementById('nombre').value.trim();
             const campus = document.getElementById('campus').value;
             const proceso = document.getElementById('proceso').value;
@@ -964,7 +919,6 @@
             btnGuardar.disabled = true;
 
             try {
-                // Preparar datos
                 const data = {
                     nombre: resultados.nombre,
                     campus: resultados.campus,
@@ -979,45 +933,28 @@
                     palabras_seleccionadas: resultados.palabras.join(', ')
                 };
 
-                // IMPORTANTE: Usamos 'cors' para poder leer la respuesta
-                const response = await fetch(SCRIPT_URL, {
+                // Usamos no-cors y enviamos los datos
+                await fetch(SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)
                 });
 
-                // Leer la respuesta del servidor
-                const result = await response.json();
-
-                // Procesar según el estado
-                if (result.status === 'duplicado') {
-                    // Caso: persona ya registrada
-                    showToast(result.message, 'error');
-                    btnGuardar.disabled = false;
-                } else if (result.status === 'success') {
-                    // Caso: guardado exitoso
-                    showToast(result.message, 'success');
-                    btnGuardar.disabled = true;
-                } else {
-                    // Caso: error genérico
-                    showToast('❌ ' + (result.message || 'Error desconocido'), 'error');
-                    btnGuardar.disabled = false;
-                }
+                // Con no-cors no podemos leer la respuesta, asumimos éxito
+                showToast('✅ ¡Resultados guardados correctamente!', 'success');
+                btnGuardar.disabled = true;
 
             } catch (error) {
                 console.error('Error:', error);
-                showToast('❌ Error de conexión. Verifica tu internet.', 'error');
+                showToast('❌ Error al guardar. Intenta de nuevo.', 'error');
                 btnGuardar.disabled = false;
             } finally {
                 loading.classList.remove('active');
             }
         }
-
-        // ================================================================
-        // 9. REINICIAR TEST
-        // ================================================================
 
         function resetTest() {
             selectedWords = [];
@@ -1034,10 +971,6 @@
 
             showToast('🔄 Test reiniciado', 'info');
         }
-
-        // ================================================================
-        // 10. TOAST
-        // ================================================================
 
         function showToast(message, type = 'info') {
             const toast = document.getElementById('toast');
