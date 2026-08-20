@@ -938,12 +938,22 @@
         }
 
         // ================================================================
-        // 8. GUARDAR EN GOOGLE SHEETS
+        // 8. GUARDAR EN GOOGLE SHEETS (CON VERIFICACIÓN DE DUPLICADOS)
         // ================================================================
 
         async function guardarResultados() {
             if (!resultados) {
                 showToast('Primero calcula tus resultados', 'error');
+                return;
+            }
+
+            // Validar datos personales (por si acaso)
+            const nombre = document.getElementById('nombre').value.trim();
+            const campus = document.getElementById('campus').value;
+            const proceso = document.getElementById('proceso').value;
+
+            if (!nombre || !campus || !proceso) {
+                showToast('Completa todos los campos del formulario', 'error');
                 return;
             }
 
@@ -954,6 +964,7 @@
             btnGuardar.disabled = true;
 
             try {
+                // Preparar datos
                 const data = {
                     nombre: resultados.nombre,
                     campus: resultados.campus,
@@ -968,19 +979,39 @@
                     palabras_seleccionadas: resultados.palabras.join(', ')
                 };
 
-                await fetch(SCRIPT_URL, {
+                // IMPORTANTE: Usamos 'cors' para poder leer la respuesta
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(data)
                 });
 
-                showToast('✅ ¡Resultados guardados correctamente!', 'success');
-                btnGuardar.disabled = true;
+                // Leer la respuesta del servidor
+                const result = await response.json();
+
+                // Procesar según el estado
+                if (result.status === 'duplicado') {
+                    // Caso: persona ya registrada
+                    showToast(result.message, 'error');
+                    btnGuardar.disabled = false;
+                    // No deshabilitar el botón para que pueda intentar con otro nombre
+                } else if (result.status === 'success') {
+                    // Caso: guardado exitoso
+                    showToast(result.message, 'success');
+                    btnGuardar.disabled = true;
+                    // Opcional: reiniciar automáticamente después de guardar
+                    // setTimeout(resetTest, 3000);
+                } else {
+                    // Caso: error genérico
+                    showToast('❌ ' + (result.message || 'Error desconocido'), 'error');
+                    btnGuardar.disabled = false;
+                }
 
             } catch (error) {
                 console.error('Error:', error);
-                showToast('❌ Error al guardar. Intenta de nuevo.', 'error');
+                showToast('❌ Error de conexión. Verifica tu internet.', 'error');
                 btnGuardar.disabled = false;
             } finally {
                 loading.classList.remove('active');
